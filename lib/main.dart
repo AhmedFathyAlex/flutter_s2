@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_s2/home.dart';
-import 'package:flutter_s2/signin.dart';
+import 'package:flutter_s2/screens/home.dart';
+import 'package:flutter_s2/screens/signin.dart';
+import 'package:flutter_s2/screens/signup.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,13 +13,18 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        '/' : (context) => Signin(),
+        '/signup' : (context) => Signup(),
+        '/home' : (context) => Home(),
+      },
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.cyanAccent,
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: Signin() ,
+      initialRoute: '/' ,
     );
   }
 }
@@ -35,3 +41,10 @@ class MainApp extends StatelessWidget {
 // Column [children]
 // Row [children]
 // TextStyle [fontSize - color - fontWeight - fontStyle]
+// Text Field
+// reusable widget
+// padding
+// Image
+// single Child scroll view
+// anonymous Navigation
+// named navigation

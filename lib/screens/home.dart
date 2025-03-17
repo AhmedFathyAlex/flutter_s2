@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_s2/screens/signin.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -20,7 +21,6 @@ class Home extends StatelessWidget {
               print('Profile Clicked');
             }, icon: Icon(Icons.person),)
           ],
-          leading: Icon(Icons.arrow_back),
         ),
         body: Center(
           child: Column(
@@ -29,15 +29,32 @@ class Home extends StatelessWidget {
               Text('Ahmed Fathy',style: TextStyle(fontSize: 30,color: Colors.blue,fontWeight: FontWeight.bold)),
               Text('Flutter Developer',style: TextStyle(fontSize: 20,color: Colors.red,fontStyle: FontStyle.italic)),
               SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.person_add),
-                  SizedBox(width: 20,),
-                  Icon(Icons.message),
-                  SizedBox(width: 20,),
-                  Icon(Icons.call),
-                ],
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    Icon(Icons.person_add),
+                    SizedBox(width: 20,),
+                    Icon(Icons.message),
+                    SizedBox(width: 20,),
+                    Icon(Icons.call),
+                     Icon(Icons.person_add),
+                    SizedBox(width: 20,),
+                    Icon(Icons.message),
+                    SizedBox(width: 20,),
+                    Icon(Icons.call),
+                     Icon(Icons.person_add),
+                    SizedBox(width: 20,),
+                    Icon(Icons.message),
+                    SizedBox(width: 20,),
+                    Icon(Icons.call),
+                     Icon(Icons.person_add),
+                    SizedBox(width: 20,),
+                    Icon(Icons.message),
+                    SizedBox(width: 20,),
+                    Icon(Icons.call),
+                  ],
+                ),
               )
             ],
           ),
