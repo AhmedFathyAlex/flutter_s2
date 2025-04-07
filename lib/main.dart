@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_s2/bmi/screens/bmi.dart';
+import 'package:flutter_s2/screens/counter.dart';
+import 'package:flutter_s2/screens/flag.dart';
 import 'package:flutter_s2/screens/home.dart';
 import 'package:flutter_s2/screens/signin.dart';
 import 'package:flutter_s2/screens/signup.dart';
@@ -14,9 +17,12 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/' : (context) => Signin(),
+        '/signin' : (context) => Signin(),
         '/signup' : (context) => Signup(),
         '/home' : (context) => Home(),
+        '/flag' : (context) => Flag(),
+        '/counter' : (context) => Counter(),
+        '/bmi' : (context) => BmiCalculator(),
       },
       theme: ThemeData(
         appBarTheme: AppBarTheme(
@@ -24,7 +30,7 @@ class MainApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/' ,
+      initialRoute: '/bmi' ,
     );
   }
 }
@@ -48,3 +54,5 @@ class MainApp extends StatelessWidget {
 // single Child scroll view
 // anonymous Navigation
 // named navigation
+//Container
+// Expanded
