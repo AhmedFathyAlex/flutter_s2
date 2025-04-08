@@ -31,7 +31,7 @@ class MainApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: Result(),
+      home: BmiCalculator(),
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_s2/bmi/app_colors.dart';
 import 'package:flutter_s2/bmi/app_styles.dart';
+import 'package:flutter_s2/bmi/result_model.dart';
+import 'package:flutter_s2/bmi/screens/result.dart';
 import 'package:flutter_s2/bmi/widgets/custom_app_bar.dart';
 import 'package:flutter_s2/bmi/widgets/custom_button.dart';
 import 'package:flutter_s2/bmi/widgets/custom_container.dart';
@@ -135,15 +137,38 @@ class _BmiCalculatorState extends State<BmiCalculator> {
             ),
             CustomButton(
               title: 'Calculate',
-              onClick: () {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text('Clicked')));
-              },
+              onClick: _calculateAndNavigate
             ),
           ],
         ),
       ),
     );
   }
-}
+
+  _calculateAndNavigate(){
+      // bmi = (weigh in KG / heigh 2 in m)
+              var hiehtInMeter = height /100 ;
+              var bmi = weight / (hiehtInMeter * hiehtInMeter);
+              ResultModel resultModel;
+              if(bmi < 18.5) {
+                resultModel = ResultModel(bmi: bmi.toStringAsFixed(1), 
+                message: 'You have to gain more weight', 
+                result: 'UNDERWEIGHT');
+              }
+              else if(bmi < 25){
+               resultModel = ResultModel(bmi: bmi.toStringAsFixed(1), 
+                message: 'You Have a Normal Body Weight,Good Job.', 
+                result: 'Normal');
+              }else{
+                  resultModel = ResultModel(bmi: bmi.toStringAsFixed(1), 
+                message: 'You Need a lose Body fats', 
+                result: 'OVERWEIGHT');
+              }
+
+              Navigator.push(context, MaterialPageRoute(builder: (context){
+                return Result(model: resultModel);
+              }));
+              
+  }
+  
+  }
