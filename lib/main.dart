@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_s2/bmi/screens/bmi.dart';
+import 'package:flutter_s2/bmi/screens/result.dart';
 import 'package:flutter_s2/screens/counter.dart';
 import 'package:flutter_s2/screens/flag.dart';
 import 'package:flutter_s2/screens/home.dart';
@@ -16,21 +17,21 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        '/signin' : (context) => Signin(),
-        '/signup' : (context) => Signup(),
-        '/home' : (context) => Home(),
-        '/flag' : (context) => Flag(),
-        '/counter' : (context) => Counter(),
-        '/bmi' : (context) => BmiCalculator(),
-      },
+      // routes: {
+      //   '/signin' : (context) => Signin(),
+      //   '/signup' : (context) => Signup(),
+      //   '/home' : (context) => Home(),
+      //   '/flag' : (context) => Flag(),
+      //   '/counter' : (context) => Counter(),
+      //   '/bmi' : (context) => BmiCalculator(),
+      // },
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.cyanAccent,
         )
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/bmi' ,
+      home: Result(),
     );
   }
 }
