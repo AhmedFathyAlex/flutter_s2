@@ -20,4 +20,10 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-
+  fonts:
+    - family: Brandon Grotesque
+      fonts:
+        - asset: assets/fonts/brandon_bold.otf
+        - asset: assets/fonts/brandon_medium.otf
+        - asset: assets/fonts/brandon_regular.otf
+          
