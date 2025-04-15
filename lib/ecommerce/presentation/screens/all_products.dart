@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_s2/ecommerce/data/models/product_model.dart';
 import 'package:flutter_s2/ecommerce/presentation/widgets/product_card.dart';
 import 'package:flutter_s2/ecommerce/presentation/widgets/search_text_field.dart';
 import 'package:flutter_s2/ecommerce/utils/app_colors.dart';
 import 'package:flutter_s2/ecommerce/utils/app_text_styles.dart';
+import 'package:http/http.dart' as http;
 
 class AllProducts extends StatefulWidget {
   const AllProducts({super.key});
@@ -16,6 +19,7 @@ class _AllProductsState extends State<AllProducts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: _fetchProducts),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -50,13 +54,13 @@ class _AllProductsState extends State<AllProducts> {
               SizedBox(
                 height: 230,
                 child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: [
                     ProductCard(productModel: ProductModel()),
                     ProductCard(productModel: ProductModel()),
                     ProductCard(productModel: ProductModel()),
                     ProductCard(productModel: ProductModel()),
                   ],
-                  scrollDirection: Axis.horizontal,
                 ),
               )
             ],
@@ -65,4 +69,11 @@ class _AllProductsState extends State<AllProducts> {
       ),
     );
   }
+
+  _fetchProducts()async{
+     var response = await http.get(Uri.parse('https://fakestoreapi.com/products'));
+     log(response.body);
+  }
+
+
 }
