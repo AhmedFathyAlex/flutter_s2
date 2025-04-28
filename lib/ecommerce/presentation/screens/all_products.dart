@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class AllProducts extends StatefulWidget {
 }
 
 class _AllProductsState extends State<AllProducts> {
+  List<ProductModel> products = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,14 +55,12 @@ class _AllProductsState extends State<AllProducts> {
               SizedBox(height: 15,),
               SizedBox(
                 height: 230,
-                child: ListView(
+                child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  children: [
-                    ProductCard(productModel: ProductModel()),
-                    ProductCard(productModel: ProductModel()),
-                    ProductCard(productModel: ProductModel()),
-                    ProductCard(productModel: ProductModel()),
-                  ],
+                  itemBuilder: (context, index) {
+                    return ProductCard(productModel: products[index]);
+                  },
+                  itemCount: products.length,
                 ),
               )
             ],
@@ -69,10 +69,23 @@ class _AllProductsState extends State<AllProducts> {
       ),
     );
   }
-
   _fetchProducts()async{
      var response = await http.get(Uri.parse('https://fakestoreapi.com/products'));
-     log(response.body);
+      List listOfProductsMaps = jsonDecode(response.body); 
+      log('Products length before : ${products.length}');
+
+      for(var map in listOfProductsMaps){
+        // data extraction
+        var model = ProductModel.fromJson(map);
+        
+        setState(() {
+           products.add(model);
+        });
+       
+      }
+
+      log('Products length after : ${products.length}');
+      products.first.printInfo();
   }
 
 
