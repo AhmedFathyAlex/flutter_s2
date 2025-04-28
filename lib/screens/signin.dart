@@ -1,7 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_s2/screens/home.dart';
-import 'package:flutter_s2/screens/signup.dart';
 import 'package:flutter_s2/widgets/custom_text_field.dart';
+import 'package:http/http.dart' as http;
 
 class Signin extends StatelessWidget {
   Signin({super.key});
@@ -35,7 +36,7 @@ class Signin extends StatelessWidget {
                   isPassword: true,
                   controller: passwordC,
                   onValidate: (password) {
-                    if(password!.length >= 8){
+                    if (password!.length >= 8) {
                       return null;
                     }
                     return 'Weak password';
@@ -51,13 +52,7 @@ class Signin extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Login Successfully'),
-                          duration: Duration(seconds: 1),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
+                      login(username: emailC.text, password: passwordC.text);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -76,5 +71,16 @@ class Signin extends StatelessWidget {
         ),
       ),
     );
+  }
+
+
+  login({required String username, required String password , }) async {
+    String endpoint = 'https://fakestoreapi.com/auth/login';
+    var response = await http.post(
+      Uri.parse(endpoint),
+      body: {"username": username, "password": password},
+    );
+    log(response.body);
+    log(response.headers.toString());
   }
 }
