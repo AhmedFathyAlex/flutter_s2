@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_s2/ecommerce/presentation/screens/all_products.dart';
 import 'package:flutter_s2/screens/signin.dart';
+import 'package:flutter_s2/todo/ui/all_tasks.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+ 
+ bool isLogin = false;
+void main()async{
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences sp = await SharedPreferences.getInstance();
+  var token = sp.getString('token');
 
-void main() {
+  if(token != null){
+    isLogin = true;
+  }
   runApp(const MainApp());
 }
 
@@ -17,7 +28,7 @@ class MainApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: Signin()
+      home: AllTasks()
     );
   }
 }

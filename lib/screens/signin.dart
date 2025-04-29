@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_s2/ecommerce/presentation/screens/all_products.dart';
 import 'package:flutter_s2/widgets/custom_text_field.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Signin extends StatelessWidget {
   Signin({super.key});
@@ -60,6 +61,8 @@ class Signin extends StatelessWidget {
                       );
                       if (token != null) {
                         // save the user token
+                      SharedPreferences sp = await SharedPreferences.getInstance();
+                      sp.setString('token', token);
                       
                         Navigator.push(
                           context,
