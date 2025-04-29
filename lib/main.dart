@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_s2/bmi/screens/bmi.dart';
-import 'package:flutter_s2/bmi/screens/result.dart';
-import 'package:flutter_s2/ecommerce/presentation/screens/all_products.dart';
-import 'package:flutter_s2/screens/counter.dart';
-import 'package:flutter_s2/screens/flag.dart';
-import 'package:flutter_s2/screens/home.dart';
 import 'package:flutter_s2/screens/signin.dart';
-import 'package:flutter_s2/screens/signup.dart';
 
 void main() {
   runApp(const MainApp());
@@ -18,14 +11,6 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // routes: {
-      //   '/signin' : (context) => Signin(),
-      //   '/signup' : (context) => Signup(),
-      //   '/home' : (context) => Home(),
-      //   '/flag' : (context) => Flag(),
-      //   '/counter' : (context) => Counter(),
-      //   '/bmi' : (context) => BmiCalculator(),
-      // },
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.cyanAccent,
@@ -58,3 +43,4 @@ class MainApp extends StatelessWidget {
 // named navigation
 //Container
 // Expanded
+// Shared prefrences 

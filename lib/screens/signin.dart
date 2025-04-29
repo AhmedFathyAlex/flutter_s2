@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_s2/ecommerce/presentation/screens/all_products.dart';
 import 'package:flutter_s2/widgets/custom_text_field.dart';
 import 'package:http/http.dart' as http;
 
@@ -24,23 +26,23 @@ class Signin extends StatelessWidget {
                 CustomTextField(
                   hint: 'Email',
                   controller: emailC,
-                  onValidate: (email) {
-                    if (email!.contains('@') && email.contains('.')) {
-                      return null;
-                    }
-                    return 'Invalid email';
-                  },
+                  // onValidate: (email) {
+                  //   if (email!.contains('@') && email.contains('.')) {
+                  //     return null;
+                  //   }
+                  //   return 'Invalid email';
+                  // },
                 ),
                 CustomTextField(
                   hint: 'Password',
                   isPassword: true,
                   controller: passwordC,
-                  onValidate: (password) {
-                    if (password!.length >= 8) {
-                      return null;
-                    }
-                    return 'Weak password';
-                  },
+                  // onValidate: (password) {
+                  //   if (password!.length >= 8) {
+                  //     return null;
+                  //   }
+                  //   return 'Weak password';
+                  // },
                 ),
                 TextButton(
                   onPressed: () {
@@ -50,9 +52,32 @@ class Signin extends StatelessWidget {
                 ),
                 SizedBox(height: 30),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      login(username: emailC.text, password: passwordC.text);
+                      var token = await login(
+                        username: emailC.text,
+                        password: passwordC.text,
+                      );
+                      if (token != null) {
+                        // save the user token
+                      
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return AllProducts();
+                            },
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Error'),
+                            duration: Duration(seconds: 1),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -73,14 +98,24 @@ class Signin extends StatelessWidget {
     );
   }
 
-
-  login({required String username, required String password , }) async {
+  Future<String?> login({
+    required String username,
+    required String password,
+  }) async {
     String endpoint = 'https://fakestoreapi.com/auth/login';
     var response = await http.post(
       Uri.parse(endpoint),
       body: {"username": username, "password": password},
     );
     log(response.body);
-    log(response.headers.toString());
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      log('Token : ${data['token']}');
+      return data['token'];
+    } else {
+      var data = jsonDecode(response.body);
+      log('error  : ${data}');
+      return null;
+    }
   }
 }
