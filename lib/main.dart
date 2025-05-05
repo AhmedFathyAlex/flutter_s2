@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_s2/ecommerce/presentation/screens/all_products.dart';
-import 'package:flutter_s2/screens/signin.dart';
+import 'package:flutter_s2/todo/data/database_service.dart';
 import 'package:flutter_s2/todo/ui/all_tasks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
  
@@ -8,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences sp = await SharedPreferences.getInstance();
+ await DatabaseService.initializeDb();
   var token = sp.getString('token');
 
   if(token != null){
