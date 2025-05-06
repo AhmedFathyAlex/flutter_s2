@@ -32,4 +32,18 @@ class DatabaseService{
   'INSERT INTO $tableName($titleCol,$descriptionCol,$dateCol) VALUES("${task.title}","${task.description}","${task.date}")');
   log('row $rowId inserted successfully');
   }
+
+  static Future<List<TaskModel>> readAllTasks()async{
+    List<TaskModel> tasks = [];
+   var result = await _tasksDb.rawQuery('SELECT * FROM $tableName');
+   for (var element in result) {
+     var model = TaskModel.fromJson(element);
+     tasks.add(model);
+   }
+   return tasks;
+  }
+
+  static deleteTask(int id)async{
+    _tasksDb.rawDelete('DELETE FROM $tableName WHERE $idCol = $id ');
+  }
 }

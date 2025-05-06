@@ -19,6 +19,13 @@ class _AllTasksState extends State<AllTasks> {
   List<TaskModel> tasks = [];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   _readTasks();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: (){
@@ -38,11 +45,8 @@ class _AllTasksState extends State<AllTasks> {
                 description: descC.text,
                 date: dateC.text
                );
-
-              setState(() {
-                 tasks.add(model); 
-              });
-              DatabaseService.insertTask(model);
+           DatabaseService.insertTask(model);
+           _readTasks();
                 titleC.clear();
                 descC.clear();
                 dateC.clear();
@@ -64,5 +68,12 @@ class _AllTasksState extends State<AllTasks> {
         ),
       ),
     );
+  }
+
+  _readTasks()async{
+  var results = await  DatabaseService.readAllTasks();
+  setState(() {
+    tasks = results;
+  });
   }
 }
